@@ -18,7 +18,7 @@ function onSuccess(position) {
   .then((response) => response.json())
   .then((data) =>data.elements.forEach(draw) );
 
-  fetch(URL_PICNIC)
+  fetch(URL_TOURISM)
   .then((response) => response.json())
   .then((data) =>data.elements.forEach(drawGreen) );
 
