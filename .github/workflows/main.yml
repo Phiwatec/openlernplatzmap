@@ -11,7 +11,7 @@ jobs:
       uses: appleboy/scp-action@master
       with:
         host: map.rsptouren.de
-        username: user
+        username: website
         key: ${{ secrets.SSH_KEY_WEBSITE}}
         port: 22
         source: "*"
