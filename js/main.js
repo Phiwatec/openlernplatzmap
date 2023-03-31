@@ -45,7 +45,7 @@ function loadAndDrawMarkers(northBound, eastBound, southBound, westBound) {
 
     fetch(URL_TOURISM)
     .then((response) => response.json())
-    .then((data) =>data.elements.forEach(drawGreen) );
+    .then((data) =>data.elements.forEach(draw) );
 }
 
 function drawGreen(table) {
