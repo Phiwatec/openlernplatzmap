@@ -1,6 +1,6 @@
 
 navigator.geolocation.getCurrentPosition(onSuccess, onError);
-var map = L.map('map').setView([50, 9], 13);
+// map.setView([latitude,longitude],13)
 
 
 // handle success case
@@ -10,10 +10,27 @@ function onSuccess(position) {
         longitude
     } = position.coords;
     map.setView([latitude,longitude],13)
-    OFFSET=0.2
+    loadAndDrawMarkers(map.getBounds().getNorth(), map.getBounds().getEast(), 
+        map.getBounds().getSouth(), map.getBounds().getWest())
+}
+
+// handle error case
+function onError() {
+    alert("Error")
    
+}
 
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
+map.on("movend", ()=> {
+    loadAndDrawMarkers(map.getBounds().getNorth(), map.getBounds().getEast(), 
+    map.getBounds().getSouth(), map.getBounds().getWest())
+})
+
+function draw(table){
+  L.marker([table.lat, table.lon]).addTo(map);
 }
 
 function loadAndDrawMarkers(northBound, eastBound, southBound, westBound) {
@@ -30,28 +47,15 @@ function loadAndDrawMarkers(northBound, eastBound, southBound, westBound) {
     .then((data) =>data.elements.forEach(drawGreen) );
 }
 
-// handle error case
-function onError() {
-    alert("Error")
-   
-}
-
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-function draw(table){
-  L.marker([table.lat, table.lon]).addTo(map);
-}
-
 function drawGreen(table) {
-  var greenIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  });
+    L.marker([table.lat, table.lon]{icon: greenIcon}).addTo(map);
+    var greenIcon = new L.Icon({
+        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
     L.marker([table.lat, table.lon],{icon: greenIcon}).addTo(map);
 }
