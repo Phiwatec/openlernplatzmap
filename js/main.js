@@ -25,7 +25,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-map.on("movend", ()=> {
+map.on("moveend", ()=> {
     loadAndDrawMarkers(map.getBounds().getNorth(), map.getBounds().getEast(), 
     map.getBounds().getSouth(), map.getBounds().getWest())
 })
