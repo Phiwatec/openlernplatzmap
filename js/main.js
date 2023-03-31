@@ -11,17 +11,23 @@ function onSuccess(position) {
     } = position.coords;
     map.setView([latitude,longitude],13)
     OFFSET=0.2
-    URL_PICNIC="https://overpass-api.de/api/interpreter?data=[out:json];node[leisure=picnic_table][access!=customers]("+(latitude-OFFSET)+","+(longitude-OFFSET)+","+(latitude+OFFSET)+","+(longitude+OFFSET)+");out;"
-    URL_TOURISM="https://overpass-api.de/api/interpreter?data=[out:json];node[tourism=picnic_site]("+(latitude-OFFSET)+","+(longitude-OFFSET)+","+(latitude+OFFSET)+","+(longitude+OFFSET)+");out;"
+   
+
+
+}
+
+function loadAndDrawMarkers(northBound, eastBound, southBound, westBound) {
+
+    URL_PICNIC = "https://overpass-api.de/api/interpreter?data=[out:json];node[leisure=picnic_table][access!=customers]("+southBound+","+westBound+","+northBound+","+eastBound+");out;"
+    URL_TOURISM = "https://overpass-api.de/api/interpreter?data=[out:json];node[tourism=picnic_site]("+southBound+","+westBound+","+northBound+","+eastBound+");out;"
     
-  fetch(URL_PICNIC)
-  .then((response) => response.json())
-  .then((data) =>data.elements.forEach(draw) );
+    fetch(URL_PICNIC)
+    .then((response) => response.json())
+    .then((data) =>data.elements.forEach(draw) );
 
-  fetch(URL_TOURISM)
-  .then((response) => response.json())
-  .then((data) =>data.elements.forEach(drawGreen) );
-
+    fetch(URL_TOURISM)
+    .then((response) => response.json())
+    .then((data) =>data.elements.forEach(drawGreen) );
 }
 
 // handle error case
