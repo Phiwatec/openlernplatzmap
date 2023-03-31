@@ -1,4 +1,6 @@
 'use strict';
+
+var map = L.map('map');
 // handle success case
 function onSuccess(position) {
     const {
