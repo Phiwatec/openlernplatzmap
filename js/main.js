@@ -1,8 +1,4 @@
-
-navigator.geolocation.getCurrentPosition(onSuccess, onError);
-// map.setView([latitude,longitude],13)
-
-
+'use strict';
 // handle success case
 function onSuccess(position) {
     const {
@@ -19,6 +15,9 @@ function onError() {
     alert("Error")
    
 }
+
+navigator.geolocation.getCurrentPosition(onSuccess, onError);
+// map.setView([latitude,longitude],13)
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -48,7 +47,7 @@ function loadAndDrawMarkers(northBound, eastBound, southBound, westBound) {
 }
 
 function drawGreen(table) {
-    L.marker([table.lat, table.lon]{icon: greenIcon}).addTo(map);
+    L.marker([table.lat, table.lon],{icon: greenIcon}).addTo(map);
     var greenIcon = new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
