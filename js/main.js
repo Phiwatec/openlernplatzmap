@@ -36,8 +36,8 @@ function draw(table){
 
 function loadAndDrawMarkers(northBound, eastBound, southBound, westBound) {
 
-    URL_PICNIC = "https://overpass-api.de/api/interpreter?data=[out:json];node[leisure=picnic_table][access!=customers]("+southBound+","+westBound+","+northBound+","+eastBound+");out;"
-    URL_TOURISM = "https://overpass-api.de/api/interpreter?data=[out:json];node[tourism=picnic_site]("+southBound+","+westBound+","+northBound+","+eastBound+");out;"
+    var URL_PICNIC = "https://overpass-api.de/api/interpreter?data=[out:json];node[leisure=picnic_table][access!=customers]("+southBound+","+westBound+","+northBound+","+eastBound+");out;"
+    var URL_TOURISM = "https://overpass-api.de/api/interpreter?data=[out:json];node[tourism=picnic_site]("+southBound+","+westBound+","+northBound+","+eastBound+");out;"
     
     fetch(URL_PICNIC)
     .then((response) => response.json())
