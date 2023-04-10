@@ -1,6 +1,7 @@
 'use strict';
 var markers=[] ;
 var map = L.map('map');
+ZOOM_LEVEL_CRIT=13;
 //var markers = new L.layerGroup();
 // handle success case
 function onSuccess(position) {
@@ -27,14 +28,14 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 map.on("moveend", ()=> {
-  if (map.getZoom() >=  13 ){
+  if (map.getZoom() >=  ZOOM_LEVEL_CRIT ){
     loadAndDrawMarkers(map.getBounds().getNorth(), map.getBounds().getEast(), 
     map.getBounds().getSouth(), map.getBounds().getWest())
   }
 })
 map.on("zoomend", ()=>{
   console.log(map.getZoom())
-  if (map.getZoom() <  13 ){
+  if (map.getZoom() <  ZOOM_LEVEL_CRIT ){
     
     for(var i = 0; i < markers.length; i++){
       
