@@ -1,7 +1,7 @@
 'use strict';
 var markers=[] ;
 var map = L.map('map');
-ZOOM_LEVEL_CRIT=13;
+const ZOOM_LEVEL_CRIT=13;
 //var markers = new L.layerGroup();
 // handle success case
 function onSuccess(position) {
