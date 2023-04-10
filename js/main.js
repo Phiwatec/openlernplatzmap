@@ -16,7 +16,7 @@ function onSuccess(position) {
 
 // handle error case
 function onError() {
-    alert("Error")
+    alert("Permission for Location denied")
    
 }
 
