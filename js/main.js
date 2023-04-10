@@ -1,6 +1,7 @@
 'use strict';
-
+var markers=[] ;
 var map = L.map('map');
+//var markers = new L.layerGroup();
 // handle success case
 function onSuccess(position) {
     const {
@@ -26,12 +27,27 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 map.on("moveend", ()=> {
+  if (map.getZoom() >=  13 ){
     loadAndDrawMarkers(map.getBounds().getNorth(), map.getBounds().getEast(), 
     map.getBounds().getSouth(), map.getBounds().getWest())
+  }
+})
+map.on("zoomend", ()=>{
+  console.log(map.getZoom())
+  if (map.getZoom() <  13 ){
+    
+    for(var i = 0; i < markers.length; i++){
+      
+      map.removeLayer(markers[i]);
+  }
+  markers.length = 0;
+  }
 })
 
 function draw(table){
-  L.marker([table.lat, table.lon]).addTo(map);
+  var marker=L.marker([table.lat, table.lon])
+    markers.push(marker)
+    marker.addTo(map);
 }
 
 function loadAndDrawMarkers(northBound, eastBound, southBound, westBound) {
@@ -45,11 +61,11 @@ function loadAndDrawMarkers(northBound, eastBound, southBound, westBound) {
 
     fetch(URL_TOURISM)
     .then((response) => response.json())
-    .then((data) =>data.elements.forEach(draw) );
+    .then((data) =>data.elements.forEach(drawGreen) );
 }
 
 function drawGreen(table) {
-    L.marker([table.lat, table.lon],{icon: greenIcon}).addTo(map);
+  
     var greenIcon = new L.Icon({
         iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -58,5 +74,9 @@ function drawGreen(table) {
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
     });
-    L.marker([table.lat, table.lon],{icon: greenIcon}).addTo(map);
+
+    var marker=L.marker([table.lat, table.lon],{icon: greenIcon})
+    markers.push(marker)
+    marker.addTo(map);
+    
 }
