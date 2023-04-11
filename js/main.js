@@ -14,7 +14,14 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&co
 
 map.on("moveend", () => {
     if (map.getZoom() >= ZOOM_LEVEL_CRIT) { // clearMarkers()
-        loadAndDrawMarkers(map.getBounds().getNorth(), map.getBounds().getEast(), map.getBounds().getSouth(), map.getBounds().getWest())
+        var NorthWest = map.getBounds().getNorthWest().wrap()
+        var Southeast=    map.getBounds().getSouthEast().wrap()
+        console.log("Refetching and redrawing")
+    loadAndDrawMarkers(NorthWest.lat, Southeast.lng, Southeast.lat,NorthWest.lng)
+
+
+
+
     }
 })
 map.on("zoomend", () => {
