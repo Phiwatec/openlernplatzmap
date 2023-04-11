@@ -17,6 +17,9 @@ function onSuccess(position) {
 // handle error case
 function onError() {
     alert("Permission for Location denied")
+    map.setView([49.0138882,8.4184952],13) // secret tunnelrave position
+    loadAndDrawMarkers(map.getBounds().getNorth(), map.getBounds().getEast(), 
+        map.getBounds().getSouth(), map.getBounds().getWest())
    
 }
 
